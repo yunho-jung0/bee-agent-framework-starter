@@ -6,16 +6,29 @@ import { OpenMeteoTool } from "bee-agent-framework/tools/weather/openMeteo";
 import { getChatLLM } from "./helpers/llm.js";
 import { getPrompt } from "./helpers/prompt.js";
 import { WikipediaTool } from "bee-agent-framework/tools/search/wikipedia";
+import { AirlineStatusTool } from "./airlineStatusTool.js";
+import { FlightCostLookupTool } from "./flightCostLookupTool.js";
 
 const llm = getChatLLM();
 const agent = new BeeAgent({
   llm,
   memory: new TokenMemory({ llm }),
-  tools: [new OpenMeteoTool(), new WikipediaTool()],
+  tools: [new OpenMeteoTool(), new WikipediaTool(), new AirlineStatusTool(), new FlightCostLookupTool()],
 });
 
 try {
-  const prompt = getPrompt(`What is the current weather in Las Vegas?`);
+  const status_prompt = getPrompt(
+    `Give me the information about flight AA777 and what is the weather at the arrival?`,
+  );
+  const cost_prompt_incomplete = getPrompt(
+    `I want to book a flight next monday to Washington DC.`,
+  );
+  const cost_prompt = getPrompt(
+    `I want to buy a flight next monday to Washington DC from DFW. Just for myself, economy class.`,
+  );
+
+  const prompt = status_prompt
+
   console.info(`User 👤 : ${prompt}`);
 
   const response = await agent
