@@ -52,7 +52,8 @@ export class FlightCostLookupResponseOutput extends JSONToolOutput<FlightCostLoo
 export class FlightCostLookupTool extends Tool<FlightCostLookupResponseOutput> {
   name = "FlightCostLookup";
   description =
-    "This tool will look up the cost and other information about flights you might want to book based on your details. Don't assume the missing details and ask the user for the details if missing.";
+    "This tool will look up the cost and other information about flights you might want to book based on your details. Don't assume the missing details and ask the user for the details if missing."
+    + " Dates must be provided in YYYY-MM-DD format"
 
   public readonly emitter: ToolEmitter<ToolInput<this>, FlightCostLookupResponseOutput> =
     Emitter.root.child({

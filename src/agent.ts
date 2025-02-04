@@ -27,9 +27,15 @@ try {
     `I want to buy a flight next monday to Washington DC from DFW. Just for myself, economy class.`,
   );
 
-  const prompt = status_prompt
+  const weather = getPrompt(
+    `What is the weather in colorado?`,
+  );
+
+  const prompt = cost_prompt
 
   console.info(`User 👤 : ${prompt}`);
+
+  const start = Date.now();
 
   const response = await agent
     .run(
@@ -48,6 +54,11 @@ try {
       });
     });
   console.info(`Agent 🤖 : ${response.result.text}`);
+
+  const end = Date.now();
+
+  console.log(`Execution time: ${end - start} ms`);
+
 } catch (error) {
   console.error(FrameworkError.ensure(error).dump());
 }
