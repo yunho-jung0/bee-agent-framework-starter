@@ -32,8 +32,6 @@
     "infra:start": "docker compose --profile=${npm_config_profile:=all} up --detach --wait",
     "infra:stop": "docker compose --profile=${npm_config_profile:=all} down",
     "infra:remove": "npm run infra:stop -- --volumes",
-    "_ensure_env": "cp -n .env.template .env || true",
-    "prepare": "husky && npm run _ensure_env"
   },
   "dependencies": {
     "@google-cloud/vertexai": "^1.9.2",
